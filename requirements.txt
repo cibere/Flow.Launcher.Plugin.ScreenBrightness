@@ -1,0 +1,2 @@
+screen_brightness_control==0.24.1
+git+https://github.com/cibere/flogin@558c05af5ffa38f9998cc8a4f7ac612c0ec08652

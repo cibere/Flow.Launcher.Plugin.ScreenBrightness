@@ -1,0 +1,12 @@
+{
+    "ID": "eb0c1059-1824-4fa6-b04e-aaeb4303cbe1",
+    "ActionKeyword": "sb",
+    "Name": "ScreenBrightness",
+    "Description": "",
+    "Author": "cibere",
+    "Version": "0.0.1",
+    "Language": "python_v2",
+    "Website": "",
+    "IcoPath": "assets/app.png",
+    "ExecuteFileName": "main.py"
+}

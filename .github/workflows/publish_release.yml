@@ -1,0 +1,43 @@
+name: Publish and Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      python_ver: 3.11
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+          path: 'plugin.json'
+          prop_path: 'Version'
+
+      - run: echo ${{steps.version.outputs.prop}} 
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt -t ./lib
+          zip -r ${{ github.event.repository.name }} . -x '*.git*'
+
+      - name: Publish
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          files: '${{ github.event.repository.name }}.zip'
+          tag_name: "v${{steps.version.outputs.prop}}"
+          body_path: 'CHANGELOG.txt
