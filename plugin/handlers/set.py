@@ -17,7 +17,7 @@ class SetBrightnessResult(Result[ScreenBrightnessPlugin]):
     async def callback(self):
         assert self.plugin
 
-        self.plugin.brightness = self.value
+        self.plugin.set_brightness(self.value)
         await self.plugin.api.show_notification("ScreenBrightness", f"Successfully set screen brightness to {self.value}%.")
         await self.plugin.api.change_query(f"{self.kw} ")
         

@@ -12,4 +12,5 @@ class GetBrightnessHandler(SearchHandler[ScreenBrightnessPlugin]):
     async def callback(self, query: Query):
         assert self.plugin
 
-        return Result("", sub=f"Brightness: {self.plugin.brightness}%", icon="assets/app.png", progress_bar=ProgressBar(self.plugin.brightness, "#f7f309"))
+        for value, monitor in self.plugin.get_brightnesses():
+            yield Result("", sub=f"Monitor: {monitor} | Brightness: {value}%", icon="assets/app.png", progress_bar=ProgressBar(value, "#f7f309"))

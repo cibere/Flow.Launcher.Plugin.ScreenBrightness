@@ -1,6 +1,7 @@
 from flogin import Plugin
 
 from .settings import ScreenBrightnessSettings
+from typing import Iterable
 import screen_brightness_control as sbc
 
 class ScreenBrightnessPlugin(Plugin[ScreenBrightnessSettings]):
@@ -13,10 +14,8 @@ class ScreenBrightnessPlugin(Plugin[ScreenBrightnessSettings]):
         
         self.register_search_handlers(SetBrightnessHandler(), GetBrightnessHandler(), InvalidSetBrightnessHandler())
     
-    @property
-    def brightness(self) -> int:
-        return sbc.get_brightness()[0]
+    def get_brightnesses(self) -> Iterable[tuple[int, str]]:
+        return zip(sbc.get_brightness(), sbc.list_monitors())
     
-    @brightness.setter
-    def brightness(self, value: int) -> None:
+    def set_brightness(self, value: int) -> None:
         sbc.set_brightness(value)
