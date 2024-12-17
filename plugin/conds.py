@@ -1,5 +1,6 @@
-from flogin._types import SearchHandlerCondition
 from flogin import Query
+from flogin._types import SearchHandlerCondition
+
 
 class MultiAnyCondition:
     r"""A builtin search condition to check for multiple conditions.

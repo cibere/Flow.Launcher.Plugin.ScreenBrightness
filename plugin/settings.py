@@ -1,5 +1,4 @@
 from flogin import Settings
 
 
-class ScreenBrightnessSettings(Settings):
-    ...
+class ScreenBrightnessSettings(Settings): ...
