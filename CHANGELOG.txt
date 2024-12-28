@@ -1,0 +1,3 @@
+v0.0.3
+
+- Fix bug where the plugin doesn't properly handle the close request from flow
