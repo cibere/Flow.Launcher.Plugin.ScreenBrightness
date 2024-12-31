@@ -3,10 +3,8 @@ from typing import Iterable
 import screen_brightness_control as sbc
 from flogin import Plugin
 
-from .settings import ScreenBrightnessSettings
 
-
-class ScreenBrightnessPlugin(Plugin[ScreenBrightnessSettings]):
+class ScreenBrightnessPlugin(Plugin):
     def __init__(self) -> None:
         super().__init__()
 
