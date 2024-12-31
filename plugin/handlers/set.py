@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import re
+import re, random
 from typing import Unpack
 
 import screen_brightness_control as sbc
@@ -75,4 +75,5 @@ class SetBrightnessHandler(SearchHandler[ScreenBrightnessPlugin]):
                 title=f"Set brightness to {value}% for {monitor}?",
                 icon="assets/app.png",
                 kw=query.keyword,
+                auto_complete_text="".join(random.choices("qwertyuiopasdfghjkl;zxcvbnm")),  # type: ignore # the TypedDict containing the kwargs is outdated in this pinned version
             )

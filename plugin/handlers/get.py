@@ -3,6 +3,7 @@ from __future__ import annotations
 from flogin import PlainTextCondition, ProgressBar, Query, Result, SearchHandler
 
 from ..plugin import ScreenBrightnessPlugin
+import random
 
 
 class GetBrightnessHandler(SearchHandler[ScreenBrightnessPlugin]):
@@ -18,4 +19,7 @@ class GetBrightnessHandler(SearchHandler[ScreenBrightnessPlugin]):
                 sub=f"Monitor: {monitor} | Brightness: {value}%",
                 icon="assets/app.png",
                 progress_bar=ProgressBar(value, "#f7f309"),
+                auto_complete_text="".join(
+                    random.choices("qwertyuiopasdfghjkl;zxcvbnm")
+                ),
             )
