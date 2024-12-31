@@ -1,3 +1,4 @@
-v0.0.3
+v0.0.4
 
-- Fix bug where the plugin doesn't properly handle the close request from flow
+- Implement a temperary solution to https://github.com/Flow-Launcher/Flow.Launcher/pull/3112
+- Remove useless settings
