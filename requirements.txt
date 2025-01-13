@@ -1,2 +1,5 @@
 screen_brightness_control==0.24.1
 flogin==1.0.0
+WMI==1.5.1
+pypiwin32==223
+pywin32==308
