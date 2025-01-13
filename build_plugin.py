@@ -15,7 +15,7 @@ def main(archive_name: str):
     ]
 
     plugin_dir = Path("plugin")
-    files.extend(plugin_dir.rglob(f"**.py"))
+    files.extend(plugin_dir.rglob(f"*.py"))
 
     lib_dir = Path("lib")
     files.extend(lib_dir.rglob("*"))
