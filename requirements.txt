@@ -1,5 +1,5 @@
 screen_brightness_control==0.24.1
-flogin==1.0.0
+git+https://github.com/cibere/flogin@0e88be14edd90fff8333ee06c7c41ab4107afbdb
 WMI==1.5.1
 pypiwin32==223
 pywin32==308
