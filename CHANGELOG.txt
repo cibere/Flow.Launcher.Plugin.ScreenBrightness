@@ -1,3 +1,4 @@
-v0.0.6
+v0.0.7
 
-- Fix a bug where one of the plugin's dependency's dependencies doesn't install correctly on some systems and architextures.
+- Couple of backend changes
+- Fix bug with the plugin only working on python 3.11
