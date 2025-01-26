@@ -1,3 +1,5 @@
 venv
 *.log
+*.log.1
 __pycache__
+lib
