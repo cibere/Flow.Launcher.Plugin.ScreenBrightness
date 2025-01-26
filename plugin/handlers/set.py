@@ -10,10 +10,10 @@ from flogin import (
     Query,
     Result,
     SearchHandler,
+    ResultConstructorKwargs,
+    AnyCondition,
 )
-from flogin.jsonrpc.results import ResultConstructorArgs
 
-from ..conds import MultiAnyCondition
 from ..plugin import ScreenBrightnessPlugin
 
 
@@ -23,7 +23,7 @@ class SetBrightnessResult(Result[ScreenBrightnessPlugin]):
         value: int,
         monitor: str | None,
         kw: str,
-        **kwargs: Unpack[ResultConstructorArgs],
+        **kwargs: Unpack[ResultConstructorKwargs],
     ):
         super().__init__(**kwargs)
 
@@ -48,11 +48,12 @@ class SetBrightnessResult(Result[ScreenBrightnessPlugin]):
         return ExecuteResponse(False)
 
 
+AnyNumberCondition = AnyCondition(*[PlainTextCondition(str(i + 1)) for i in range(100)])
+
+
 class SetBrightnessHandler(SearchHandler[ScreenBrightnessPlugin]):
     def __init__(self):
-        cond = MultiAnyCondition(*[PlainTextCondition(str(i + 1)) for i in range(100)])
-
-        super().__init__(cond)
+        super().__init__(AnyNumberCondition)
 
     async def callback(self, query: Query[re.Match]):
         assert self.plugin
@@ -75,5 +76,7 @@ class SetBrightnessHandler(SearchHandler[ScreenBrightnessPlugin]):
                 title=f"Set brightness to {value}% for {monitor}?",
                 icon="assets/app.png",
                 kw=query.keyword,
-                auto_complete_text="".join(random.choices("qwertyuiopasdfghjkl;zxcvbnm")),  # type: ignore # the TypedDict containing the kwargs is outdated in this pinned version
+                auto_complete_text="".join(
+                    random.choices("qwertyuiopasdfghjkl;zxcvbnm")
+                ),
             )
