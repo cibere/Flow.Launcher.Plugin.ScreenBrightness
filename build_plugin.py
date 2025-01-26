@@ -4,6 +4,10 @@ from pathlib import Path
 
 
 def main(archive_name: str):
+    prod_file = Path("DELETE-ME-FOR-DEBUG-LOGS.flogin.prod")
+    if not prod_file.exists():
+        prod_file.write_text("")
+
     files = [
         Path(fp)
         for fp in (
@@ -11,6 +15,7 @@ def main(archive_name: str):
             "main.py",
             "assets/app.png",
             "assets/error.png",
+            prod_file.name,
         )
     ]
 
@@ -28,4 +33,7 @@ def main(archive_name: str):
 
 
 if __name__ == "__main__":
-    main(sys.argv[-1])
+    if (archive_name := sys.argv[-1].strip()) == "build_plugin.py":
+        raise RuntimeError("Give a filename")
+    
+    main(archive_name)
