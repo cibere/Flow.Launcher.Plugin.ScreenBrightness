@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-import re, random
+import re
+import random
 from typing import Unpack
 
 import screen_brightness_control as sbc
