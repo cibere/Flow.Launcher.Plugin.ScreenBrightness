@@ -8,17 +8,17 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       python_ver: 3.13.1
     permissions:
       contents: write
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ env.python_ver }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python_ver }}
 
@@ -33,17 +33,18 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install -r ./requirements.txt -t ./lib
       
       - name: Build Archive
         run: |
-          python build_plugin.py ${{ github.event.repository.name }}.zip
+          py build_plugin.py ${{ github.event.repository.name }}.zip
 
       - name: Extract Archive To Dist
         run: |
           mkdir dist
-          unzip -q ${{ github.event.repository.name }}.zip -d dist
+          cd dist
+          tar -xf .\..\${{ github.event.repository.name }}.zip
 
       - name: Upload Archive to workflow artifacts
         id: upload-artifact
