@@ -1,4 +1,3 @@
-v0.0.7
+v0.0.8
 
-- Couple of backend changes
-- Fix bug with the plugin only working on python 3.11
+- Fix bug with `flogin._types` being missing causing a fatal error on startup
