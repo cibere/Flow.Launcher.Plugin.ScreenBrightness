@@ -1,0 +1,66 @@
+name: Build Plugin
+
+on:
+    push:
+        branches: [main]
+    release:
+        types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      python_ver: 3.13.1
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ env.python_ver }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.python_ver }}
+
+      - name: get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+          path: 'plugin.json'
+          prop_path: 'Version'
+
+      - run: echo ${{steps.version.outputs.prop}}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt -t ./lib
+      
+      - name: Build Archive
+        run: |
+          python build_plugin.py ${{ github.event.repository.name }}.zip
+
+      - name: Extract Archive To Dist
+        run: |
+          mkdir dist
+          unzip -q ${{ github.event.repository.name }}.zip -d dist
+
+      - name: Upload Archive to workflow artifacts
+        id: upload-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: dist
+          name: ${{ github.event.repository.name }}
+          compression-level: 0
+      
+      - name: Send Artifact Download Url To Webhook
+        uses: tsickert/discord-webhook@v6.0.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_BUILD_WEBHOOK }}
+          content: https://github-artifact-downloader.cibere.dev/${{ github.event.repository.name }}/${{ steps.upload-artifact.outputs.artifact-id }}/screenbrightness.zip
+
+      - name: Upload Archive to release artifacts
+        uses: softprops/action-gh-release@v2
+        if: ${{ github.event_name == 'release' }}
+        with:
+            files: ${{ github.event.repository.name }}.zip
