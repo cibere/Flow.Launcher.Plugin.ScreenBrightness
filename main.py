@@ -7,6 +7,7 @@ sys.path.extend(
         path.as_posix()
         for path in (
             root,
+            root / "plugin",
             root / "lib",
             root / "lib" / "win32",
             root / "lib" / "win32" / "lib",
