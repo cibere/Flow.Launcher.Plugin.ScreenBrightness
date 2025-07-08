@@ -19,7 +19,7 @@ def main(archive_name: str):
         )
     ]
 
-    plugin_dir = Path("plugin")
+    plugin_dir = Path("screen_brightness")
     files.extend(plugin_dir.rglob("*.py"))
 
     lib_dir = Path("lib")
